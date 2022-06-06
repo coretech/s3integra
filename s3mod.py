@@ -1,10 +1,6 @@
 import boto3, json, os
 from botocore.exceptions import NoCredentialsError
 
-
-
-
-
 def s3up(secret_key,key_id,bucket_name,region,filename):
 
 
