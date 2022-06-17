@@ -45,29 +45,29 @@ if f == nil  then
     ngx.say(cjson.encode(resp_json))
     return
 end
--- check exist proceses uplod recordfile
-ps_string = string.format("ps -axu | grep \'%s\' | grep -v grep | grep -v curl | wc -l", filename)
-local handle = io.popen(ps_string)
-local exist_ps = handle:read("*a")
-handle:close()
---ngx.say(exist_ps)
-if tonumber(exist_ps) > 0 then 
-    resp_json['last_data'] = 'file_already_uploading'
-    ngx.say(cjson.encode(resp_json))
-    return
-end
--- for s3 file store
-if  action == 'pbx.s3.store' then
-    local popenline = string.format("/root/s3_python/bin/python /root/s3_python/ptests3.py \'%s\' &" ,  message )
-    os.execute(popenline)
---    local handle = io.popen(popenline)
---    local result = handle:read("*a")
---    handle:close()
---    io.close(f)
-    resp_json['last_data'] = 'upload_started'
-    ngx.say(cjson.encode(resp_json))
-    return
-end
+---- check exist proceses uplod recordfile
+--ps_string = string.format("ps -axu | grep \'%s\' | grep -v grep | grep -v curl | wc -l", filename)
+--local handle = io.popen(ps_string)
+--local exist_ps = handle:read("*a")
+--handle:close()
+----ngx.say(exist_ps)
+--if tonumber(exist_ps) > 0 then 
+--    resp_json['last_data'] = 'file_already_uploading'
+--    ngx.say(cjson.encode(resp_json))
+--    return
+--end
+---- for s3 file store
+--if  action == 'pbx.s3.store' then
+--    local popenline = string.format("/root/s3_python/bin/python /root/s3_python/ptests3.py \'%s\' &" ,  message )
+--    os.execute(popenline)
+----    local handle = io.popen(popenline)
+----    local result = handle:read("*a")
+----    handle:close()
+----    io.close(f)
+--    resp_json['last_data'] = 'upload_started'
+--    ngx.say(cjson.encode(resp_json))
+--    return
+--end
 -- delete local file
 if action == 'pbx.local.delete' then
     io.close(f)
